@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CloudVault - File & Clipboard Manager</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+</head>
+<body class="light-mode">
+    <div class="theme-toggle">
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <div class="container glass-effect" id="auth-container">
+        <div class="logo">
+            <i class="fas fa-cloud"></i>
+            <h1>CloudVault</h1>
+        </div>
+        <div class="auth-tabs">
+            <button class="tab-btn active" data-tab="login">Login</button>
+            <button class="tab-btn" data-tab="signup">Signup</button>
+        </div>
+
+        <div class="tab-content" id="login">
+            <form id="login-form">
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" placeholder="Email" id="login-email" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" placeholder="Password" id="login-password" required>
+                </div>
+                <button type="submit" class="btn-primary">Login</button>
+            </form>
+        </div>
+
+        <div class="tab-content" id="signup" style="display: none;">
+            <form id="signup-form">
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" placeholder="Username" id="signup-username" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" placeholder="Email" id="signup-email" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" placeholder="Password" id="signup-password" required>
+                </div>
+                <button type="submit" class="btn-primary">Create Account</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="dashboard glass-effect" id="dashboard-container" style="display: none;">
+        <div class="sidebar">
+            <div class="logo">
+                <i class="fas fa-cloud"></i>
+                <h2>CloudVault</h2>
+            </div>
+            <div class="user-info">
+                <div class="avatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <span id="username-display"></span>
+            </div>
+            <div class="nav-menu">
+                <button id="select-file-btn" class="nav-btn active">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Files</span>
+                </button>
+                <button id="clipboard-btn" class="nav-btn">
+                    <i class="fas fa-clipboard"></i>
+                    <span>Clipboard</span>
+                </button>
+                <button id="logout-btn" class="nav-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="section-container" id="file-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-file-alt"></i> Files</h2>
+                </div>
+                <div class="upload-area">
+                    <input type="file" id="file-upload" multiple>
+                    <div class="upload-icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <label for="file-upload">Drag files here or click to upload</label>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-bar" id="upload-progress"></div>
+                    <div class="progress-text" id="progress-text">0%</div>
+                </div>
+                <div class="files-list" id="files-list"></div>
+            </div>
+
+            <div class="section-container" id="clipboard-section" style="display: none;">
+                <div class="section-header">
+                    <h2><i class="fas fa-clipboard"></i> Clipboard</h2>
+                </div>
+                <div class="clipboard-input glass-effect">
+                    <textarea id="clipboard-text" placeholder="Type or paste text here..."></textarea>
+                    <button id="save-clipboard-btn" class="btn-primary">
+                        <i class="fas fa-save"></i> Save
+                    </button>
+                </div>
+                <div class="clipboard-list" id="clipboard-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
